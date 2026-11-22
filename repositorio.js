@@ -21,4 +21,39 @@ async function carregar() {
     }
 }
 
-module.exports = { carregar };
+
+// Grava a lista inteira no arquivo 
+async function salvar(ordens) {
+    const texto = JSON.stringify(ordens, null, 2);
+    await fs.writeFile(caminhoArquivo(), texto, 'utf-8');
+}
+
+// Próximo número = maior número existente + 1 
+function proximoNumero(ordens) {
+    if (ordens.length === 0) {
+        return 1;
+    }
+
+    const numeros = ordens.map((ordem) => ordem.numero);
+    return Math.max(...numeros) + 1;
+}
+
+// Cadastra uma nova ordem e grava na hora
+async function cadastrar(dados) {
+    const ordens = await carregar();
+
+    const novaOrdem = {
+        numero: proximoNumero(ordens),
+        cliente: dados.cliente,
+        veiculo: dados.veiculo,
+        servico: dados.servico,
+        valor: Number(dados.valor),
+    };
+
+    ordens.push(novaOrdem);
+    await salvar(ordens);
+
+    return novaOrdem;
+}
+
+module.exports = { carregar, cadastrar };
