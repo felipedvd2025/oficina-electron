@@ -1,0 +1,110 @@
+/* ===== Base*/
+body {
+  margin: 0;
+  padding: 25px;
+  font-family: "Segoe UI", sans-serif;
+  background-color: #151920;
+  color: #e8ebef;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+h1, h2, p {
+  margin: 0;
+}
+
+/* ===== Cabeçalho ===== */
+.cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo-icone {
+  font-size: 32px;
+}
+
+.titulo-principal {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.subtitulo {
+  font-size: 13px;
+  color: #a9b8c8;
+}
+
+.titulo-secao {
+  font-size: 16px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+/* ===== Card ===== */
+.card {
+  background-color: #1b2028;
+  border: 1px solid #343b46;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* ===== Formulário ===== */
+.formulario {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 15px;
+  row-gap: 12px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label-campo {
+  font-size: 12px;
+  font-weight: bold;
+  color: #d8dee7;
+}
+
+input {
+  background-color: #151920;
+  color: #ffffff;
+  border: 1px solid #3b4350;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: inherit;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: #768393;
+}
+
+/* ===== Botões ===== */
+.acoes {
+  grid-column: 1 / -1;
+  display: flex;
+  gap: 10px;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 9px 16px;
+  font-family: inherit;
+  font-weight: bold;
+}
+
+.botao-principal {
+  background-color: #f6a62c;
+  color: #151920;
+}
