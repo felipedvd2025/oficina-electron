@@ -1,0 +1,23 @@
+{
+  "name": "oficina-electron",
+  "version": "1.0.0",
+  "description": "Gerenciamento de OS de oficina. ",
+  "homepage": "https://github.com/felipedvd2025/oficina-electron#readme",
+  "bugs": {
+    "url": "https://github.com/felipedvd2025/oficina-electron/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felipedvd2025/oficina-electron.git"
+  },
+  "license": "ISC",
+  "author": "Felipe da Costa, Luan Lucas, Luís Felype, Vitor Sâmile",
+  "type": "commonjs",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^45.4.1"
+  }
+}

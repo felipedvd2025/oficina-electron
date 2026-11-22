@@ -1,0 +1,1 @@
+console.log('Olá do Electron 👋')
