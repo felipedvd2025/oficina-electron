@@ -1,20 +1,73 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
   <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    >
-    <meta
-      http-equiv="X-Content-Security-Policy"
-      content="default-src 'self'; script-src 'self'"
-    >
-    <title>Hello from Electron renderer!</title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
+    <title>Mobilium - Oficina e Ordens de Serviço</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h1>Teste from Electron renderer!</h1>
-    <p>👋</p>
+    <!-- CABEÇALHO -->
+    <header class="cabecalho">
+      <span class="logo-icone">🔧</span>
+      <div>
+        <h1 class="titulo-principal">MOBILIUM</h1>
+        <p class="subtitulo">GESTÃO DE OFICINA MECÂNICA</p>
+      </div>
+    </header>
+
+    <!-- FORMULÁRIO (cadastrar e editar) -->
+    <section class="card">
+      <h2 class="titulo-secao" id="titulo-formulario">Nova ordem de serviço</h2>
+
+      <form id="form-ordem" class="formulario">
+        <div class="campo">
+          <label class="label-campo" for="campo-cliente">Cliente</label>
+          <input type="text" id="campo-cliente" placeholder="Cliente" />
+        </div>
+        <div class="campo">
+          <label class="label-campo" for="campo-veiculo">Veículo</label>
+          <input type="text" id="campo-veiculo" placeholder="Veículo" />
+        </div>
+        <div class="campo">
+          <label class="label-campo" for="campo-servico">Serviço</label>
+          <input type="text" id="campo-servico" placeholder="Serviço" />
+        </div>
+        <div class="campo">
+          <label class="label-campo" for="campo-valor">Valor</label>
+          <input type="text" id="campo-valor" placeholder="Valor" inputmode="decimal" />
+        </div>
+
+        <div class="acoes">
+          <button type="submit" id="botao-salvar" class="botao-principal">Cadastrar</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- TABELA -->
+    <section class="card">
+      <h2 class="titulo-secao">Ordens de serviço</h2>
+
+      <table id="tabela-ordens">
+        <thead>
+          <tr>
+            <th>Nº</th>
+            <th>Cliente</th>
+            <th>Veículo</th>
+            <th>Serviço</th>
+            <th>Valor</th>
+          </tr>
+        </thead>
+        <tbody id="corpo-tabela"></tbody>
+      </table>
+      <p id="lista-vazia" class="lista-vazia">Nenhuma ordem cadastrada.</p>
+
+      <div class="acoes">
+        <button type="button" id="botao-editar" class="botao-editar">Editar</button>
+        <button type="button" id="botao-excluir" class="botao-excluir">Excluir</button>
+      </div>
+    </section>
+
+    <script src="renderer.js"></script>
   </body>
 </html>
