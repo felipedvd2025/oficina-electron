@@ -108,3 +108,60 @@ button {
   background-color: #f6a62c;
   color: #151920;
 }
+
+/* ===== Tabela ===== */
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #151920;
+  border: 1px solid #343b46;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+thead th {
+  background-color: #202630;
+  color: #ffffff;
+  text-align: left;
+  padding: 8px;
+  font-size: 13px;
+}
+
+thead th:first-child {
+  width: 60px;
+}
+
+tbody td {
+  height: 38px;
+  padding: 0 8px;
+  color: #e8ebef;
+  border-top: 1px solid #202630;
+}
+
+tbody tr {
+  cursor: pointer;
+}
+
+/* Linha selecionada (classe colocada pelo renderer.js ao clicar) */
+tbody tr.selecionada td {
+  background-color: #47391f;
+  color: #ffffff;
+}
+
+.lista-vazia {
+  color: #a9b8c8;
+  text-align: center;
+  padding: 12px;
+}
+
+/* ===== Botões da tabela ===== */
+.botao-editar {
+  background-color: #2a303a;
+  color: #ffffff;
+}
+
+.botao-excluir {
+  background-color: #8f3434;
+  color: #ffffff;
+}
