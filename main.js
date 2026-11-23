@@ -1,6 +1,8 @@
+
 // main.js — processo principal: cria a janela e controla o ciclo de vida do app
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('path');
+const repositorio = require('./repositorio');
 
 function criarJanela() {
   const janela = new BrowserWindow({
@@ -20,8 +22,13 @@ function criarJanela() {
 }
 
 app.whenReady().then(() => {
+  // Handlers de IPC: só recebem o pedido da tela e delegam ao repositório
+  ipcMain.handle('ordens:listar', () => repositorio.carregar());
+  ipcMain.handle('ordens:cadastrar', (evento, dados) => repositorio.cadastrar(dados));
+
   criarJanela();
 });
+
 //fechar todas as janelas encerra o app
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit();
