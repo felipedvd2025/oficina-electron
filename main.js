@@ -25,6 +25,7 @@ app.whenReady().then(() => {
   // Handlers de IPC: só recebem o pedido da tela e delegam ao repositório
   ipcMain.handle('ordens:listar', () => repositorio.carregar());
   ipcMain.handle('ordens:cadastrar', (evento, dados) => repositorio.cadastrar(dados));
+  ipcMain.handle('ordens:editar', (evento, ordem) => repositorio.editar(ordem));
 
   criarJanela();
 });
