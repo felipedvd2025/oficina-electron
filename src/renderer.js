@@ -9,11 +9,15 @@ const campoCliente = document.getElementById('campo-cliente');
 const campoVeiculo = document.getElementById('campo-veiculo');
 const campoServico = document.getElementById('campo-servico');
 const campoValor = document.getElementById('campo-valor');
+const tituloFormulario = document.getElementById('titulo-formulario');
+const botaoSalvar = document.getElementById('botao-salvar');
+const botaoEditar = document.getElementById('botao-editar');
 
 
 // Estado da tela
 let ordens = [];
 let numeroSelecionado = null;
+let numeroEmEdicao = null; // número da ordem que está sendo editada
 
 // Formata um número como moeda brasileira
 const formatoMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
@@ -71,6 +75,10 @@ function renderizar() {
 
         corpoTabela.appendChild(linha);
     }
+
+    // Editar só fica disponível quando há uma linha selecionada
+botaoEditar.disabled = numeroSelecionado === null;
+
 }
 
 // Carrega as ordens salvas
@@ -121,22 +129,51 @@ function validar(dados) {
     return true;
 }
 
-// Cadastra uma nova ordem de serviço
-async function onCadastrar(evento) {
+
+// Volta o formulário ao modo de cadastro
+function limparFormulario() {
+    formulario.reset();
+    numeroEmEdicao = null;
+    numeroSelecionado = null;
+    tituloFormulario.textContent = 'Nova ordem de serviço';
+    botaoSalvar.textContent = 'Cadastrar';
+    renderizar();
+}
+
+// Preenche o formulário com a ordem selecionada
+function onEditar() {
+    const ordem = ordens.find((o) => o.numero === numeroSelecionado);
+    if (!ordem) return;
+
+    numeroEmEdicao = ordem.numero;
+    campoCliente.value = ordem.cliente;
+    campoVeiculo.value = ordem.veiculo;
+    campoServico.value = ordem.servico;
+    campoValor.value = String(ordem.valor).replace('.', ',');
+
+    tituloFormulario.textContent = `Editando ordem nº ${ordem.numero}`;
+    botaoSalvar.textContent = 'Salvar';
+    campoCliente.focus();
+}
+
+// Cadastra ou salva a edição
+async function onSalvar(evento) {
     evento.preventDefault();
 
     const dados = lerFormulario();
+    if (!validar(dados)) return;
 
-    if (!validar(dados)) {
-        return;
+    if (numeroEmEdicao === null) {
+        await window.api.cadastrar(dados);
+    } else {
+        await window.api.editar({ numero: numeroEmEdicao, ...dados });
     }
 
-    await window.api.cadastrar(dados);
-
-    formulario.reset();
+    limparFormulario();
     await carregarOrdens();
 }
 
-formulario.addEventListener('submit', onCadastrar);
+formulario.addEventListener('submit', onSalvar);
+botaoEditar.addEventListener('click', onEditar);
 
 carregarOrdens();
