@@ -192,4 +192,10 @@ async function onExcluir() {
 
 botaoExcluir.addEventListener('click', onExcluir);
 
+// Ctrl+N (menu Arquivo > Nova ordem): volta para "Nova ordem" e foca no Cliente
+window.api.aoNovaOrdem(() => {
+    limparFormulario();
+    campoCliente.focus();
+});
+
 carregarOrdens();
