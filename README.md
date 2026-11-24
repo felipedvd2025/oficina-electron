@@ -1,7 +1,7 @@
 # Mobilium — Gestão de Oficina Mecânica (Electron)
 
 Aplicação desktop para gerenciar **ordens de serviço** de uma oficina mecânica.
-É a reconstrução em Electron do sistema desenvolvido em JavaFX, mantendo a mesma entidade, os mesmos campos e a mesma tela, mas agora com separação entre processos, comunicação por IPC, recursos nativos do sistema operacional e persistência em arquivo JSON.
+É a reconstrução em Electron do sistema desenvolvido em JavaFX, mantendo a entidade e os campos das ordens, agora com duas telas, separação entre processos, comunicação por IPC, recursos nativos do sistema operacional e persistência em arquivo JSON.
 
 Disciplina **Programação Desktop**.
 
@@ -14,6 +14,13 @@ Disciplina **Programação Desktop**.
 - Validação dos campos obrigatórios e máscara no campo de valor (até 2 casas decimais)
 - Menu nativo com atalhos de teclado
 - Dados salvos automaticamente em arquivo JSON a cada alteração
+
+A navegação superior alterna entre **Visão geral** e **Ordens**. O botão **Nova ordem** abre o formulário de cadastro na tela Ordens.
+
+- **Visão geral:** tela inicial com as contagens de ordens e clientes, o valor total em ordens, os cinco cadastros mais recentes pelo número e até cinco serviços mais frequentes. Sem ordens, apresenta o convite para cadastrar o primeiro serviço. Os valores cadastrados não indicam pagamentos recebidos.
+- **Ordens:** cadastro, edição e exclusão, com busca por número, cliente, veículo ou serviço. Selecione uma linha para habilitar Editar e Excluir. **Cancelar edição** limpa o formulário sem salvar alterações.
+
+Após cadastrar, editar ou excluir uma ordem, as listas, os valores e as contagens das duas telas são atualizados a partir das ordens salvas. As buscas ignoram diferenças de maiúsculas e acentos.
 
 ## Tecnologias
 
@@ -30,6 +37,12 @@ git clone https://github.com/felipedvd2025/oficina-electron.git
 cd oficina-electron
 npm install
 npm start
+```
+
+Para executar os testes das consultas e dos resumos:
+
+```bash
+node --test test/dados-oficina.test.js
 ```
 
 ## Atalhos de teclado
@@ -49,10 +62,13 @@ oficina-electron/
 ├── preload.js        # expõe o window.api para a tela com contextBridge
 ├── repositorio.js    # leitura e gravação do arquivo JSON
 ├── README.md
-└── src/
-    ├── index.html    # estrutura da tela
-    ├── style.css     # estilo visual
-    └── renderer.js   # lógica da tela (usa apenas o window.api)
+├── src/
+│   ├── index.html        # estrutura das duas telas
+│   ├── style.css         # estilo visual
+│   ├── dados-oficina.js  # busca e resumo das ordens
+│   └── renderer.js       # navegação e interação (usa apenas o window.api)
+└── test/
+    └── dados-oficina.test.js # testes das consultas e dos resumos
 ```
 
 ## Arquitetura
@@ -82,9 +98,13 @@ A comunicação tela → principal usa `ipcRenderer.invoke` / `ipcMain.handle`. 
 
 ## Capturas de tela
 
-**Tela principal**
+**Visão geral**
 
-![Tela principal](docs/tela-principal.png)
+![Visão geral](docs/visao-geral.png)
+
+**Ordens de serviço**
+
+![Ordens de serviço](docs/tela-principal.png)
 
 **Modo edição**
 
@@ -100,9 +120,9 @@ A comunicação tela → principal usa `ipcRenderer.invoke` / `ipcMain.handle`. 
 
 ## Checklist de testes
 
-Todos os itens abaixo foram verificados pela interface do aplicativo, em uma sessão com dados demonstrativos isolados.
+O checklist abaixo registra a verificação pela interface do aplicativo com dados demonstrativos isolados. A integração das duas telas foi validada no Electron com dados temporários e confirmação de exclusão controlada no teste. Os quatro testes de consultas e resumos passaram, cobrindo estado vazio, contagem de clientes, totais, ordenação e busca.
 
-- [x] Primeira execução sem o arquivo JSON: abre com a lista vazia e sem erro
+- [x] Primeira execução sem o arquivo JSON: abre na Visão geral com contagens zeradas e convite para cadastrar a primeira ordem
 - [x] Cadastro pelo botão e pelo Enter, com número automático e valor em R$
 - [x] Validação dos campos obrigatórios (cliente, veículo e serviço)
 - [x] Máscara do campo valor (só números, até 2 casas decimais)
