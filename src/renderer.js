@@ -12,6 +12,8 @@ const campoValor = document.getElementById('campo-valor');
 const tituloFormulario = document.getElementById('titulo-formulario');
 const botaoSalvar = document.getElementById('botao-salvar');
 const botaoEditar = document.getElementById('botao-editar');
+const botaoExcluir = document.getElementById('botao-excluir');
+
 
 
 // Estado da tela
@@ -78,6 +80,7 @@ function renderizar() {
 
     // Editar só fica disponível quando há uma linha selecionada
 botaoEditar.disabled = numeroSelecionado === null;
+botaoExcluir.disabled = numeroSelecionado === null;
 
 }
 
@@ -175,5 +178,18 @@ async function onSalvar(evento) {
 
 formulario.addEventListener('submit', onSalvar);
 botaoEditar.addEventListener('click', onEditar);
+
+// Botão Excluir: pede confirmação no diálogo nativo e, se confirmar, exclui
+async function onExcluir() {
+    if (numeroSelecionado === null) return;
+
+    const excluiu = await window.api.excluir(numeroSelecionado);
+    if (!excluiu) return; // clicou em "Cancelar": nada muda
+
+    limparFormulario();
+    await carregarOrdens();
+}
+
+botaoExcluir.addEventListener('click', onExcluir);
 
 carregarOrdens();
