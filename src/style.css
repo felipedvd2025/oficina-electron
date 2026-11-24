@@ -165,3 +165,40 @@ tbody tr.selecionada td {
   background-color: #8f3434;
   color: #ffffff;
 }
+
+/* ===== Foco nos campos (igual ao .text-field:focused da N1) ===== */
+input:focus {
+  outline: none;
+  border-color: #f6a62c;
+  box-shadow: 0 0 0 1px #f6a62c;
+}
+
+/* ===== Hover dos botões (iguais aos :hover da N1) ===== */
+.botao-principal:hover:not(:disabled) {
+  background-color: #ffb63f;
+}
+
+.botao-editar:hover:not(:disabled) {
+  background-color: #343b46;
+}
+
+.botao-excluir:hover:not(:disabled) {
+  background-color: #a83d3d;
+}
+
+/* Foco pelo teclado (Tab) nos botões */
+button:focus-visible {
+  outline: 2px solid #f6a62c;
+  outline-offset: 2px;
+}
+
+/* ===== Botões desativados (Editar/Excluir sem linha selecionada) ===== */
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ===== Hover nas linhas da tabela ===== */
+tbody tr:not(.selecionada):hover td {
+  background-color: #1e242d;
+}
