@@ -77,4 +77,17 @@ async function editar(ordemEditada) {
     return ordens[indice];
 }
 
-module.exports = { carregar, cadastrar, editar };
+// Remove a ordem com o número informado e grava na hora
+async function excluir(numero) {
+    const ordens = await carregar();
+
+    const restantes = ordens.filter((ordem) => ordem.numero !== numero);
+    if (restantes.length === ordens.length) {
+        throw new Error(`Ordem nº ${numero} não encontrada.`);
+    }
+
+    await salvar(restantes);
+    return true;
+}
+
+module.exports = { carregar, cadastrar, editar, excluir };
