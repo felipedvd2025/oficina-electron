@@ -15,6 +15,29 @@ const campoValor = document.getElementById('campo-valor');
 let ordens = [];
 let numeroSelecionado = null;
 
+// Formata um número como moeda brasileira
+const formatoMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+
+function formatarMoeda(valor) {
+    return formatoMoeda.format(valor);
+}
+
+// Máscara do campo Valor: vazio, ou até 9 dígitos e opcionalmente vírgula ou ponto com até 2 casas decimais
+const regraValor = /^$|^\d{1,9}([,.]\d{0,2})?$/;
+
+campoValor.addEventListener('beforeinput', (evento) => {
+    if (evento.data === null) return; // apagar com Backspace/Delete é sempre permitido
+
+    // Monta como o texto ficaria se a tecla fosse aceita
+    const inicio = campoValor.selectionStart;
+    const fim = campoValor.selectionEnd;
+    const textoNovo = campoValor.value.slice(0, inicio) + evento.data + campoValor.value.slice(fim);
+
+    // Se não seguir a regra, cancela a digitação
+    if (!regraValor.test(textoNovo)) {
+        evento.preventDefault();
+    }
+});
 // Desenha as ordens na tabela
 function renderizar() {
     corpoTabela.innerHTML = '';
@@ -32,7 +55,7 @@ function renderizar() {
             ordem.cliente,
             ordem.veiculo,
             ordem.servico,
-            ordem.valor
+            formatarMoeda(ordem.valor)
         ];
 
         for (const dado of dados) {
