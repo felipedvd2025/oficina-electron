@@ -80,6 +80,40 @@ renderer.js ──window.api──► preload.js ──IPC──► main.js ─�
 A comunicação tela → principal usa `ipcRenderer.invoke` / `ipcMain.handle`. O aviso do menu (principal → tela) usa `webContents.send` / `ipcRenderer.on`.
 
 
+## Capturas de tela
+
+**Tela principal**
+
+![Tela principal](docs/tela-principal.png)
+
+**Modo edição**
+
+![Modo edição](docs/modo-edicao.png)
+
+**Confirmação de exclusão (diálogo nativo)**
+
+![Diálogo de exclusão](docs/dialogo-exclusao.png)
+
+**Menu nativo com atalhos**
+
+![Menu](docs/menu.png)
+
+## Checklist de testes
+
+Todos os itens abaixo foram verificados pela interface do aplicativo, em uma sessão com dados demonstrativos isolados.
+
+- [x] Primeira execução sem o arquivo JSON: abre com a lista vazia e sem erro
+- [x] Cadastro pelo botão e pelo Enter, com número automático e valor em R$
+- [x] Validação dos campos obrigatórios (cliente, veículo e serviço)
+- [x] Máscara do campo valor (só números, até 2 casas decimais)
+- [x] Dados mantidos ao fechar e abrir o app
+- [x] Editar e Excluir desativados sem linha selecionada
+- [x] Edição de uma ordem, gravada na hora
+- [x] Exclusão cancelada no diálogo nativo não altera nada
+- [x] Exclusão confirmada no diálogo nativo remove a ordem e grava na hora
+- [x] `Ctrl + N` limpa o formulário e foca no campo Cliente
+- [x] `Ctrl + Q` fecha a aplicação
+
 ## Equipe
 | Felipe da Costa Mota
 | Vitor Sâmile Silva Santos 
