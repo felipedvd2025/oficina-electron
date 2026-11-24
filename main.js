@@ -1,6 +1,6 @@
 
 // main.js — processo principal: cria a janela e controla o ciclo de vida do app
-const { app, BrowserWindow, ipcMain, dialog } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron');
 const path = require('path');
 const repositorio = require('./repositorio');
 
@@ -43,6 +43,45 @@ async function confirmarExclusao(janela, ordem) {
   return resposta.response === 0; // 0 = clicou em "Excluir"
 }
 
+// Menu nativo da aplicação
+function criarMenu() {
+  const modelo = [
+    {
+      label: 'Arquivo',
+      submenu: [
+        {
+          label: 'Nova ordem',
+          accelerator: 'CmdOrCtrl+N',
+          // avisa a tela (processo principal -> renderer)
+          click: (item, janela) => {
+            if (janela) janela.webContents.send('menu:nova-ordem');
+          },
+        },
+        { type: 'separator' },
+        {
+          label: 'Sair',
+          accelerator: 'CmdOrCtrl+Q',
+          click: () => app.quit(),
+        },
+      ],
+    },
+    { label: 'Editar', role: 'editMenu' },
+    {
+      label: 'Exibir',
+      submenu: [
+        { label: 'Recarregar', role: 'reload' },
+        { label: 'Ferramentas do desenvolvedor', role: 'toggleDevTools' },
+        { type: 'separator' },
+        { label: 'Tamanho original', role: 'resetZoom' },
+        { label: 'Aumentar zoom', role: 'zoomIn' },
+        { label: 'Diminuir zoom', role: 'zoomOut' },
+      ],
+    },
+  ];
+
+  Menu.setApplicationMenu(Menu.buildFromTemplate(modelo));
+}
+
 app.whenReady().then(() => {
   // Handlers de IPC: só recebem o pedido da tela e delegam ao repositório
   ipcMain.handle('ordens:listar', () => repositorio.carregar());
@@ -61,6 +100,7 @@ app.whenReady().then(() => {
     return true;
   });
 
+  criarMenu();
   criarJanela();
 });
 
