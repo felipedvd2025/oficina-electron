@@ -56,4 +56,25 @@ async function cadastrar(dados) {
     return novaOrdem;
 }
 
-module.exports = { carregar, cadastrar };
+// Atualiza uma ordem existente (procurada pelo número) e grava na hora
+async function editar(ordemEditada) {
+    const ordens = await carregar();
+
+    const indice = ordens.findIndex((ordem) => ordem.numero === ordemEditada.numero);
+    if (indice === -1) {
+        throw new Error(`Ordem nº ${ordemEditada.numero} não encontrada.`);
+    }
+
+    ordens[indice] = {
+        numero: ordens[indice].numero, // o número nunca muda
+        cliente: ordemEditada.cliente,
+        veiculo: ordemEditada.veiculo,
+        servico: ordemEditada.servico,
+        valor: Number(ordemEditada.valor),
+    };
+
+    await salvar(ordens);
+    return ordens[indice];
+}
+
+module.exports = { carregar, cadastrar, editar };
