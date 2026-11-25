@@ -17,6 +17,7 @@
       <nav class="navegacao" aria-label="Telas do aplicativo">
         <a href="#visao-geral" data-rota="visao-geral">Visão geral</a>
         <a href="#ordens" data-rota="ordens">Ordens</a>
+        <a href="#relatorio" data-rota="relatorio">Relatório</a>
       </nav>
       <button class="botao-principal nova-ordem" type="button" id="nova-ordem" title="Nova ordem (Ctrl+N)">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
@@ -69,6 +70,48 @@
           <div class="tabela-rolagem"><table id="tabela-ordens"><caption class="somente-leitor">Selecione uma ordem para editar ou excluir. Use Enter ou Espaço para selecionar pelo teclado.</caption><thead><tr><th scope="col">Nº</th><th scope="col">Cliente</th><th scope="col">Veículo</th><th scope="col">Serviço</th><th scope="col" class="coluna-valor">Valor</th></tr></thead><tbody id="corpo-tabela"></tbody></table></div>
           <p id="lista-vazia" class="lista-vazia">Nenhuma ordem cadastrada.</p>
           <div class="acoes acoes-tabela"><p id="orientacao-selecao" class="texto-apoio">Selecione uma ordem na tabela para editar ou excluir.</p><button type="button" id="botao-editar" class="botao-secundario" disabled>Editar</button><button type="button" id="botao-excluir" class="botao-excluir" disabled>Excluir</button></div>
+        </section>
+      </section>
+
+      <section id="tela-relatorio" class="tela" aria-labelledby="titulo-relatorio" hidden>
+        <div class="titulo-pagina">
+          <div>
+            <h1 id="titulo-relatorio" tabindex="-1">Relatório de Serviços</h1>
+            <p>Resumo dos valores das ordens cadastradas.</p>
+          </div>
+        </div>
+
+        <dl class="indicadores" aria-label="Indicadores do relatório">
+          <div>
+            <dt>Valor médio por ordem</dt>
+            <dd id="relatorio-media">—</dd>
+          </div>
+          <div>
+            <dt>Maior ordem</dt>
+            <dd id="relatorio-maior">—</dd>
+          </div>
+          <div>
+            <dt>Menor ordem</dt>
+            <dd id="relatorio-menor">—</dd>
+          </div>
+        </dl>
+
+        <p class="nota-valores">Valores cadastrados nas ordens; não indicam pagamentos recebidos.</p>
+
+        <section class="card" aria-labelledby="titulo-relatorio-servicos">
+          <h2 id="titulo-relatorio-servicos">Valores por serviço</h2>
+          <div class="tabela-rolagem">
+            <table>
+              <thead>
+                <tr>
+                  <th scope="col">Serviço</th>
+                  <th scope="col">Quantidade</th>
+                  <th scope="col" class="coluna-valor">Valor total</th>
+                </tr>
+              </thead>
+              <tbody id="relatorio-servicos"></tbody>
+            </table>
+          </div>
         </section>
       </section>
     </main>
