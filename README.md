@@ -305,7 +305,7 @@ Verificações realizadas durante o desenvolvimento:
 - [x] Agrupamento de serviços por quantidade e valor
 - [x] Atualização do relatório após novo cadastro
 
-O arquivo de testes automatizados utilizado anteriormente foi removido do repositório. O checklist acima registra as verificações realizadas pela interface.
+
 
 ## Atualizações recentes
 
